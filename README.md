@@ -2,10 +2,10 @@
 react通用webpack config以及package.json
 
 # package.json
+
   "dependencies": {
-	
+  
     "babel-polyfill": "^6.16.0",//babel补充包
-		
     "es6-promise": "^4.1.0",//promise补充包
     "isomorphic-fetch": "^2.2.1",//使fetch可以全局使用
     "jsonwebtoken": "^7.4.0",//授权加密工具
@@ -26,9 +26,9 @@ react通用webpack config以及package.json
     "sass-loader": "^4.0.0",//webpack sass加载器
     "webpack": "^2.4.1"//核心工具
   },
-	
+  
   "devDependencies": {
-	
+  
     "autoprefixer": "^6.7.7",//webpack postcss插件css自动增加浏览器前缀
     "babel-loader": "^6.4.1",
     "babel-plugin-import": "^1.1.1",
