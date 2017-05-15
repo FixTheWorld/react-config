@@ -26,7 +26,6 @@ react通用webpack config以及package.json
     "sass-loader": "^4.0.0",//webpack sass加载器
     "webpack": "^2.4.1"//核心工具
   },
-  
   "devDependencies": {
   
     "autoprefixer": "^6.7.7",//webpack postcss插件css自动增加浏览器前缀
