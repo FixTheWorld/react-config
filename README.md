@@ -48,3 +48,4 @@ react通用webpack config以及package.json
     "url-loader": "^0.5.8",//webpack 图片加载器
     "webpack-dev-server": "^2.4.2",//webpack 测试服务器，热替换
     "webpack-spritesmith": "^0.3.3"//webpack插件，生成雪碧图
+    }
