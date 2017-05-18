@@ -7,12 +7,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const prefix=require('autoprefixer');
 const SpritesmithPlugin = require('webpack-spritesmith');
+// const px2rem = require('postcss-px2rem');
+// const CompressionWebpackPlugin = require('compression-webpack-plugin');//gzip压缩，需要服务器开启gzip转换
 const config=require('./config');
 const env=config.env;
 const webpackConfig= {
     entry: {
-        app: path.resolve('', "./index.js"),
-        vendor:[
+        "js/app": path.resolve('', "./index.js"),
+        "js/vendor":[
             'react',
             'react-redux',
             'react-router',
@@ -22,8 +24,8 @@ const webpackConfig= {
     output: {
         path:path.resolve('',"./build"),
         filename: "[name].[hash].js",
-        publicPath:'/',
-        chunkFilename:"[name].[hash].js"
+        // publicPath:'',//默认是当前路径，可以写入“/”来做成绝对路径
+        chunkFilename:"js/[name].[hash].js"//按需加载的js文件的路径和后缀名
     },
     module:{
         rules:
@@ -44,22 +46,24 @@ const webpackConfig= {
                     use:["css-loader",{
                         loader:"postcss-loader",
                         options: {
-                            plugins: function () {
-                                return [
-                                    prefix({browsers : ['last 2 versions']})
-                                ];
-                            }
+                            plugins:
+                                function () {
+                                    return [
+                                        prefix({browsers : ['last 2 versions']}),
+                                        // px2rem({remUnit:32})
+                                    ];
+                                }
+
                         }
                     },"sass-loader"]
                 })
             },{
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader?limit=8192&name=[name].[ext]'//8192B,8KB
+                loader: 'url-loader?limit=8192&name=images/[name].[ext]'//8192B,8KB
             }
         ]
     },
     devServer: {
-        contentBase: path.resolve(__dirname,'../'),//服务器根目录,相当于apache的www
         port:2355,
         hot:true,
         historyApiFallback: true,//不跳转
@@ -88,7 +92,7 @@ webpackConfig.plugins=[
         //图片和样式的输出目录
         target: {
             image: path.resolve('', 'src/assets/img/sprite/sprite.png'),
-            css: path.resolve('', 'src/assets/css/sprite.scss')
+            css: path.resolve('', 'src/assets/css/sprite.css')
         },
         apiOptions: {
             cssImageRef: '/src/assets/img/sprite/sprite.png'//css文件相对sprite文件的路径
@@ -100,8 +104,17 @@ webpackConfig.plugins=[
     new ExtractTextPlugin({filename:"styles.css",allChunks:true}),
     //提取通用js文件，缺省chunks参数将会把入口entry中的通用文件提取到vendor中
     new webpack.optimize.CommonsChunkPlugin({
-        names : ['vendor']
-    })
+        names : ['js/vendor']
+    }),
+    // new CompressionWebpackPlugin({ //gzip 压缩,需要服务器开启gzip转换
+    //     asset: '[path].gz[query]',
+    //     algorithm: 'gzip',
+    //     test: new RegExp(
+    //         '\\.(js|css)$'    //压缩 js 与 css
+    //     ),
+    //     threshold: 10240,
+    //     minRatio: 0.8
+    // })
 ];
 //按环境加载插件
 if(env==='development') {
@@ -110,15 +123,16 @@ if(env==='development') {
         new webpack.HotModuleReplacementPlugin(),//hmr热替换
         new webpack.NoEmitOnErrorsPlugin());//出错不影响执行
 }else if(env==='production'){
-    webpackConfig.devtool="source-map";
     webpackConfig.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
+            comments: false,
             compress : {
                 unused    : true,
                 dead_code : true,
                 warnings  : false
             }
         }),
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin()//按发生次数分配模块和块id，减少总文件大小
     );
 }
