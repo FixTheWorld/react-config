@@ -95,7 +95,7 @@ webpackConfig.plugins=[
             css: path.resolve('', 'src/assets/css/sprite.css')
         },
         apiOptions: {
-            cssImageRef: '/src/assets/img/sprite/sprite.png'//css文件相对sprite文件的路径
+            cssImageRef: '../img/sprite/sprite.png'//css文件相对sprite文件的路径
         },
         spritesmithOptions: {
             algorithm: 'top-down'
