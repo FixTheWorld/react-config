@@ -1,7 +1,7 @@
 # react-config
 react通用webpack config以及package.json
 [react-config](https://forceking3.github.io/react-config "点击查看")
-![git](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496917053852&di=e47e4e57b13b9e5a1f733dc8cd778399&imgtype=0&src=http%3A%2F%2Fwww.th7.cn%2Fd%2Ffile%2Fp%2F2016%2F08%2F10%2Fa25959f80491d3d4bd26975deb9457c1.jpg)
+![git](http://github.com/unicorn.png =100×100)
 
 # package.json
 
