@@ -1,7 +1,6 @@
 # react-config
 react通用webpack config以及package.json
 [react-config](https://forceking3.github.io/react-config "点击查看")
-![git](http://github.com/unicorn.png =100×100)
 
 # package.json
 
